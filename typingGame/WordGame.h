@@ -50,22 +50,32 @@ public:
 		font(input).draw(40, Vec2{ 40, 80 }, ColorF{ 0.12 });
 
 		// 削除された文字を描画する
-		if (!deletedChars.isEmpty())
+		if (!worongInput.isEmpty())
 		{
-			font(U"削除された文字: {}"_fmt(deletedChars)).draw(40, Vec2{ 40, 240 }, ColorF{ 0.5, 0.0, 0.0 });
+			font(U"削除された文字: {}"_fmt(worongInput)).draw(40, Vec2{ 40, 240 }, ColorF{ 0.5, 0.0, 0.0 });
 		}
 	}
 
+
+
 	bool DeleteWorongInput()
 	{
+		// 入力がターゲットの先頭と一致しない場合
 		if (not target.starts_with(input))
 		{
-			deletedChars.push_back(input.back());
+			// 誤った入力を1文字だけ表示するために、worongInputをクリアする
+			worongInput.clear();
+
+			// 誤った入力の最後の文字を記録する
+			worongInput.push_back(input.back());
+
+			// 誤った入力の最後の文字を削除する
 			input.pop_back();
 			return true;
 		}
 		return false;
 	}
+
 
 	void GoNextWord()
 	{
@@ -76,7 +86,7 @@ public:
 		input.clear();
 
 		// 削除された文字列をクリアする
-		deletedChars.clear();
+		worongInput.clear();
 	}
 
 private:
@@ -89,8 +99,8 @@ private:
 	// 入力中の文字列
 	String input;
 
-	// 削除された文字列
-	String deletedChars;
+	// 削除された文字列。本当は１文字でいいけど、複数の文字を削除することもあるかもしれないのでstring型にしている
+	String worongInput;
 
 	const Font font{ FontMethod::MSDF, 48, Typeface::Bold };
 
