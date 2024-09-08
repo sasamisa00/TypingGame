@@ -1,6 +1,16 @@
 ﻿# include <Siv3D.hpp>
 #include "wordList.h"
 
+bool DeleteWorongInput(String& input, const String& target)
+{
+	if (not target.starts_with(input))
+	{
+		input.pop_back();
+		return true;
+	}
+	return false;
+}
+
 void Main()
 {
 	Scene::SetBackground(Palette::Powderblue);
@@ -22,10 +32,7 @@ void Main()
 		TextInput::UpdateText(input, TextInputMode::DenyControl);
 
 		// 誤った入力が含まれていたら削除する
-		while (not target.starts_with(input))
-		{
-			input.pop_back();
-		}
+		DeleteWorongInput(input, target);
 
 		// 一致したら次の問題へ移る
 		if (input == target)
