@@ -1,7 +1,7 @@
 ﻿# include <Siv3D.hpp>
 #include "wordList.h"
 
-
+//頭文字によって問題のリストを変更する
 Array<String> CyrillicAlphabetToWords(CyrillicAlphabetList cyrillicChar)
 {
 	Array<String> words;
@@ -115,6 +115,24 @@ Array<String> CyrillicAlphabetToWords(CyrillicAlphabetList cyrillicChar)
 	return words;
 }
 
+//ランダムにアルファベットを選ぶ
+CyrillicAlphabetList GetRandomCyrillicAlphabet()
+{
+	static const Array<CyrillicAlphabetList> allAlphabets = {
+		CyrillicAlphabetList::а, CyrillicAlphabetList::б, CyrillicAlphabetList::в, CyrillicAlphabetList::г,
+		CyrillicAlphabetList::д, CyrillicAlphabetList::е, CyrillicAlphabetList::ё, CyrillicAlphabetList::ж,
+		CyrillicAlphabetList::з, CyrillicAlphabetList::и, CyrillicAlphabetList::й, CyrillicAlphabetList::к,
+		CyrillicAlphabetList::л, CyrillicAlphabetList::м, CyrillicAlphabetList::н, CyrillicAlphabetList::о,
+		CyrillicAlphabetList::п, CyrillicAlphabetList::р, CyrillicAlphabetList::с, CyrillicAlphabetList::т,
+		CyrillicAlphabetList::у, CyrillicAlphabetList::ф, CyrillicAlphabetList::х, CyrillicAlphabetList::ц,
+		CyrillicAlphabetList::ч, CyrillicAlphabetList::ш, CyrillicAlphabetList::щ, CyrillicAlphabetList::ъ,
+		CyrillicAlphabetList::ы, CyrillicAlphabetList::ь, CyrillicAlphabetList::э, CyrillicAlphabetList::ю,
+		CyrillicAlphabetList::я
+	};
+
+	return allAlphabets.choice();
+}
+
 
 class WordGame
 {
@@ -143,6 +161,14 @@ public:
 		// 一致したら次の問題へ移る
 		if (input == target)
 			GoNextWord();
+
+
+		// ボタンが押されたら問題のアルファベットを変更
+		if (SimpleGUI::Button(U"абв...", Vec2{ 600, 40 }))
+		{
+			words = CyrillicAlphabetToWords(GetRandomCyrillicAlphabet());
+			GoNextWord();
+		}
 
 		//描画系
 		Draw();
@@ -177,8 +203,8 @@ public:
 	}
 
 private:
-	//問題のアルファベットを選ぶ
-	const Array<String> words;
+	//問題の配列を選ぶ
+	Array<String> words;
 
 	// 問題文をランダムに選ぶ
 	String target = words.choice();
@@ -197,6 +223,9 @@ void Main()
 {
 	Scene::SetBackground(Palette::Powderblue);
 
+	// ウィンドウサイズを可変に設定
+	Window::SetStyle(WindowStyle::Sizable);
+
 
 	//問題のアルファベットを選ぶ
 	String cyrillicAlphabt;
@@ -210,6 +239,14 @@ void Main()
 	{
 		wordGame.Update();
 
+		// Sキーが押されたらスクリーンショットを撮る
+		if (KeyS.down())
+		{
+			const String screenshotPath = U"screenshot.png";
+			ScreenCapture::SaveCurrentFrame(screenshotPath);
+			//Print << U"スクリーンショットを保存しました: " << screenshotPath;
+			
+		}
 
 	}
 }
