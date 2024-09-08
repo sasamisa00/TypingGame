@@ -31,13 +31,12 @@ void ScreenshotManager::SaveScreenshot()
 	// スクリーンショットのファイル名に番号を追加
 	const String screenshotPath = U"screenshot_{}.png"_fmt(screenshotCount);
 	ScreenCapture::SaveCurrentFrame(screenshotPath);
-	//Print << U"スクリーンショットを保存しました: " << screenshotPath;
 }
 
 void ScreenshotManager::Update()
 {
 	// 特定の条件でスクリーンショットを撮影
-	if (KeyS.down()) // 例えば、Sキーが押されたときにスクリーンショットを撮影
+	if (KeyF6.down()) // 例えば、Sキーが押されたときにスクリーンショットを撮影
 	{
 		TakeScreenshot();
 	}
