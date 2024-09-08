@@ -17,11 +17,11 @@ void Main()
 	WordGame wordGame;
 	ScreenshotManager screenshotManager(backgroundColor); // スクリーンショットマネージャのインスタンスを作成
 
-	const Array<String> words = SelectAdjustedRandomWords(вWords);
+	/*const Array<String> words = SelectAdjustedRandomWords(вWords);
 	for (size_t i = 0; i < words.size(); i++)
 	{
 		Print << words[i];
-	}
+	}*/
 
 	while (System::Update())
 	{
