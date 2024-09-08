@@ -50,9 +50,7 @@ private:
 		// ctrl key が押された場合に、lastInput の文字によってwordを変更する
 		if (KeyControl.down())
 		{
-			//UpdateWordsWithRandomAlphabet();
-
-			//words = CyrillicAlphabetToWords(lastInput);
+			SetWordsStartingWithLastInput();
 		}
 	}
 
@@ -102,6 +100,18 @@ private:
 	void UpdateWordsWithRandomAlphabet()
 	{
 		words = CyrillicAlphabetToWords(GetRandomCyrillicAlphabet());
+		AdvanceToNextTargetWord();
+	}
+
+	void SetWordsStartingWithLastInput()
+	{
+		if (lastInput.isEmpty())
+		{
+			return;
+		}
+
+		CyrillicAlphabetList alphabet = CharToCyrillicAlphabet(lastInput[0]);
+		words = CyrillicAlphabetToWords(alphabet);
 		AdvanceToNextTargetWord();
 	}
 

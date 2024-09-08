@@ -171,6 +171,7 @@ CyrillicAlphabetList CharToCyrillicAlphabet(const char32_t ch)
 	case U'э': return CyrillicAlphabetList::э; // 'э' に対応する列挙型
 	case U'ю': return CyrillicAlphabetList::ю; // 'ю' に対応する列挙型
 	case U'я': return CyrillicAlphabetList::я; // 'я' に対応する列挙型
-	default: throw std::invalid_argument("Invalid Cyrillic character"); // 無効な文字の場合は例外を投げる
+	default: return CyrillicAlphabetList::а;//とりあえず'a'に対応する列挙型を返す
+	//default: throw std::invalid_argument("Invalid Cyrillic character"); // 無効な文字の場合は例外を投げる
 	}
 }
