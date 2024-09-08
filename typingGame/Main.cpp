@@ -1,6 +1,7 @@
 ﻿# include <Siv3D.hpp>
 #include "wordList.h"
 #include "AlphabetFunction.h"
+#include "ScreenshotManager.h"
 
 
 
@@ -96,6 +97,8 @@ void Main()
 	// ウィンドウサイズを可変に設定
 	Window::SetStyle(WindowStyle::Sizable);
 
+	int screenshotCount = 0; // スクリーンショットの番号を管理する変数
+
 
 	//問題のアルファベットを選ぶ
 	String cyrillicAlphabt;
@@ -105,18 +108,18 @@ void Main()
 
 	WordGame wordGame(CyrillicAlphabetList::б);
 
+	ScreenshotManager screenshotManager; // スクリーンショットマネージャのインスタンスを作成
+
+
 	while (System::Update())
 	{
 		wordGame.Update();
 
+		
 		// Sキーが押されたらスクリーンショットを撮る
 		if (KeyS.down())
 		{
-			const String screenshotPath = U"screenshot.png";
-			ScreenCapture::SaveCurrentFrame(screenshotPath);
-			//Print << U"スクリーンショットを保存しました: " << screenshotPath;
-			
+			screenshotManager.TakeScreenshot();
 		}
-
 	}
 }
