@@ -33,7 +33,7 @@ void Main()
 	while (System::Update())
 	{
 		wordGame.Update();
-		WordGame.Draw();
+		wordGame.Draw();
 
 		
 		screenshotManager.Update();
