@@ -45,15 +45,15 @@ public:
 	void Draw()
 	{
 		// 問題文を描画する
-		font(target).draw(40, Vec2{ 40, 80 }, ColorF{ 0.98 });
+		font(target).draw(40, Vec2{ 40, 80 }, wordColor);
 
 		// 入力中の文字を描画する
-		font(input).draw(40, Vec2{ 40, 80 }, ColorF{ 0.12 });
+		font(input).draw(40, Vec2{ 40, 80 }, inputWordColor);
 
 		// 削除された文字を描画する
-		if (!wrongInput.isEmpty())
+		if (not wrongInput.isEmpty())
 		{
-			font(U"wrong input: {}"_fmt(wrongInput)).draw(40, Vec2{ 40, 240 }, Palette::Aliceblue);
+			font(U"| {}"_fmt(wrongInput)).draw(40, Vec2{ 40, 240 }, wrongWordColor);
 		}
 	}
 
@@ -124,5 +124,9 @@ private:
 	String wrongInput;
 
 	const Font font{ FontMethod::MSDF, 48, Typeface::Bold };
+
+	const ColorF wordColor = ColorF{ 0.98 };
+	const ColorF inputWordColor = ColorF{ 0.12 };
+	const ColorF wrongWordColor = wordColor;
 
 };
