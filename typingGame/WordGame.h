@@ -31,12 +31,12 @@ public:
 	}
 
 private:
-	//static constexpr Vec2 ButtonPosition{ 600, 40 };
 	static constexpr Vec2 TargetWordPosition{ 40, 80 };
 	static constexpr Vec2 InputWordPosition{ 40, 80 };
 	static constexpr Vec2 LastInputPosition{ 40, 240 };
 	static constexpr Vec2 AlphabetChangeButtonPosition{ 600, 40 };
 	static constexpr int32 FontSize = 40;
+
 
 	void HandleTextInput()
 	{
@@ -45,6 +45,12 @@ private:
 		if (HasInputChanged(previousInput, input))
 		{
 			StoreLastInput();
+		}
+
+		// ctrl key が押された場合にUpdateWordsWithRandomAlphabetを呼び出す
+		if (KeyControl.down())
+		{
+			UpdateWordsWithRandomAlphabet();
 		}
 	}
 
@@ -74,11 +80,13 @@ private:
 		}
 	}
 
+
+
 	void HandleAlphabetChange()
 	{
 		if (IsAlphabetChangeButtonPressed())
 		{
-			ChangeAlphabet();
+			UpdateWordsWithRandomAlphabet();
 		}
 	}
 
@@ -87,11 +95,14 @@ private:
 		return SimpleGUI::Button(U"абв...", AlphabetChangeButtonPosition);
 	}
 
-	void ChangeAlphabet()
+
+
+	void UpdateWordsWithRandomAlphabet()
 	{
 		words = CyrillicAlphabetToWords(GetRandomCyrillicAlphabet());
 		AdvanceToNextTargetWord();
 	}
+
 
 	void RenderTargetWord() const
 	{
