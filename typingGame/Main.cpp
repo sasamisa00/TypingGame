@@ -5,11 +5,12 @@ void Main()
 {
 	Scene::SetBackground(Palette::Powderblue);
 
-	
-
+	//問題のアルファベットを選ぶ
+	const Array<String> words = вWords;
 
     // 問題文をランダムに選ぶ
-    String target = аWords.choice();
+	String target = words.choice();//аWords.choice();
+
 	// 入力中の文字列
 	String input;
 
@@ -30,7 +31,7 @@ void Main()
 		if (input == target)
 		{
 			// 問題文をランダムに選ぶ
-			target = аWords.choice();
+			target = words.choice();//аWords.choice();
 
 			// 入力文字列をクリアする	
 			input.clear();
