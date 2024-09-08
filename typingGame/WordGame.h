@@ -7,46 +7,44 @@
 class WordGame
 {
 public:
-	// コンストラクタで色のテーマを受け取る
 	WordGame(const WordColorTheme& wordColorTheme = WordColorTheme(), CyrillicAlphabetList cyrillicChar = CyrillicAlphabetList::а)
 		: theme(wordColorTheme), words(CyrillicAlphabetToWords(cyrillicChar))
 	{
-		SelectRandomTarget();
+		SelectRandomTargetWord();
 	}
 
 	~WordGame() = default;
 
-	// 更新処理
 	void Update()
 	{
-		ProcessTextInput();
-		ProcessWrongInput();
-		CheckForNextWord();
-		ProcessAlphabetChange();
+		HandleTextInput();
+		HandleIncorrectInput();
+		CheckAndAdvanceToNextWord();
+		HandleAlphabetChange();
 	}
 
-	// 描画処理
 	void Draw() const
 	{
-		DrawTargetWord();
-		DrawInputWord();
-		DrawLastInput();
+		RenderTargetWord();
+		RenderInputWord();
+		RenderLastInput();
 	}
 
 private:
-	// 定数の定義
-	static constexpr Vec2 ButtonPosition{ 600, 40 };
+	//static constexpr Vec2 ButtonPosition{ 600, 40 };
 	static constexpr Vec2 TargetWordPosition{ 40, 80 };
 	static constexpr Vec2 InputWordPosition{ 40, 80 };
 	static constexpr Vec2 LastInputPosition{ 40, 240 };
+	static constexpr Vec2 AlphabetChangeButtonPosition{ 600, 40 };
+	static constexpr int32 FontSize = 40;
 
-	void ProcessTextInput()
+	void HandleTextInput()
 	{
 		const String previousInput = input;
 		TextInput::UpdateText(input, TextInputMode::DenyControl);
 		if (HasInputChanged(previousInput, input))
 		{
-			RecordLastInput();
+			StoreLastInput();
 		}
 	}
 
@@ -55,65 +53,65 @@ private:
 		return previousInput != currentInput;
 	}
 
-	void ProcessWrongInput()
+	void HandleIncorrectInput()
 	{
-		if (IsWrongInput())
+		if (IsInputIncorrect())
 		{
 			RemoveLastInputCharacter();
 		}
 	}
 
-	bool IsWrongInput() const
+	bool IsInputIncorrect() const
 	{
 		return !target.starts_with(input);
 	}
 
-	void CheckForNextWord()
+	void CheckAndAdvanceToNextWord()
 	{
 		if (input == target)
 		{
-			GoNextWord();
+			AdvanceToNextTargetWord();
 		}
 	}
 
-	void ProcessAlphabetChange()
+	void HandleAlphabetChange()
 	{
-		if (IsAlphabetChangeButtonClicked())
+		if (IsAlphabetChangeButtonPressed())
 		{
 			ChangeAlphabet();
 		}
 	}
 
-	bool IsAlphabetChangeButtonClicked() const
+	bool IsAlphabetChangeButtonPressed() const
 	{
-		return SimpleGUI::Button(U"абв...", ButtonPosition);
+		return SimpleGUI::Button(U"абв...", AlphabetChangeButtonPosition);
 	}
 
 	void ChangeAlphabet()
 	{
 		words = CyrillicAlphabetToWords(GetRandomCyrillicAlphabet());
-		GoNextWord();
+		AdvanceToNextTargetWord();
 	}
 
-	void DrawTargetWord() const
+	void RenderTargetWord() const
 	{
-		font(target).draw(40, TargetWordPosition, theme.wordColor);
+		font(target).draw(TargetWordPosition, theme.wordColor);
 	}
 
-	void DrawInputWord() const
+	void RenderInputWord() const
 	{
-		font(input).draw(40, InputWordPosition, theme.correctWordColor);
+		font(input).draw(InputWordPosition, theme.correctWordColor);
 	}
 
-	void DrawLastInput() const
+	void RenderLastInput() const
 	{
 		if (!lastInput.isEmpty())
 		{
-			font(U"| {}"_fmt(lastInput)).draw(40, LastInputPosition, theme.inputtingWordColor);
+			font(U"| {}"_fmt(lastInput)).draw(LastInputPosition, theme.inputtingWordColor);
 		}
 	}
 
-	void RecordLastInput()
+	void StoreLastInput()
 	{
 		lastInput = s3d::String(1, input.back());
 	}
@@ -123,14 +121,14 @@ private:
 		input.pop_back();
 	}
 
-	void GoNextWord()
+	void AdvanceToNextTargetWord()
 	{
-		SelectRandomTarget();
+		SelectRandomTargetWord();
 		input.clear();
 		lastInput.clear();
 	}
 
-	void SelectRandomTarget()
+	void SelectRandomTargetWord()
 	{
 		target = words.choice();
 	}
@@ -142,5 +140,7 @@ private:
 	String input;
 	String lastInput;
 
-	const Font font{ FontMethod::MSDF, 48, Typeface::Bold };
+	const Font font{ FontMethod::MSDF, FontSize, Typeface::Bold };
 };
+
+
