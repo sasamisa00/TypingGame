@@ -19,10 +19,10 @@ public:
 	// 更新処理
 	void Update()
 	{
-		HandleTextInput();
-		HandleWrongInput();
+		ProcessTextInput();
+		ProcessWrongInput();
 		CheckForNextWord();
-		HandleAlphabetChange();
+		ProcessAlphabetChange();
 	}
 
 	// 描画処理
@@ -34,9 +34,13 @@ public:
 	}
 
 private:
+	// 定数の定義
 	static constexpr Vec2 ButtonPosition{ 600, 40 };
+	static constexpr Vec2 TargetWordPosition{ 40, 80 };
+	static constexpr Vec2 InputWordPosition{ 40, 80 };
+	static constexpr Vec2 LastInputPosition{ 40, 240 };
 
-	void HandleTextInput()
+	void ProcessTextInput()
 	{
 		const String previousInput = input;
 		TextInput::UpdateText(input, TextInputMode::DenyControl);
@@ -51,12 +55,17 @@ private:
 		return previousInput != currentInput;
 	}
 
-	void HandleWrongInput()
+	void ProcessWrongInput()
 	{
-		if (!target.starts_with(input))
+		if (IsWrongInput())
 		{
 			RemoveLastInputCharacter();
 		}
+	}
+
+	bool IsWrongInput() const
+	{
+		return !target.starts_with(input);
 	}
 
 	void CheckForNextWord()
@@ -67,30 +76,40 @@ private:
 		}
 	}
 
-	void HandleAlphabetChange()
+	void ProcessAlphabetChange()
 	{
-		if (SimpleGUI::Button(U"абв...", ButtonPosition))
+		if (IsAlphabetChangeButtonClicked())
 		{
-			words = CyrillicAlphabetToWords(GetRandomCyrillicAlphabet());
-			GoNextWord();
+			ChangeAlphabet();
 		}
+	}
+
+	bool IsAlphabetChangeButtonClicked() const
+	{
+		return SimpleGUI::Button(U"абв...", ButtonPosition);
+	}
+
+	void ChangeAlphabet()
+	{
+		words = CyrillicAlphabetToWords(GetRandomCyrillicAlphabet());
+		GoNextWord();
 	}
 
 	void DrawTargetWord() const
 	{
-		font(target).draw(40, Vec2{ 40, 80 }, theme.wordColor);
+		font(target).draw(40, TargetWordPosition, theme.wordColor);
 	}
 
 	void DrawInputWord() const
 	{
-		font(input).draw(40, Vec2{ 40, 80 }, theme.correctWordColor);
+		font(input).draw(40, InputWordPosition, theme.correctWordColor);
 	}
 
 	void DrawLastInput() const
 	{
 		if (!lastInput.isEmpty())
 		{
-			font(U"| {}"_fmt(lastInput)).draw(40, Vec2{ 40, 240 }, theme.inputtingWordColor);
+			font(U"| {}"_fmt(lastInput)).draw(40, LastInputPosition, theme.inputtingWordColor);
 		}
 	}
 
@@ -117,9 +136,11 @@ private:
 	}
 
 	const WordColorTheme& theme;
+
 	Array<String> words;
 	String target;
 	String input;
 	String lastInput;
+
 	const Font font{ FontMethod::MSDF, 48, Typeface::Bold };
 };
