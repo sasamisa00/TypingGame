@@ -21,7 +21,7 @@ public:
 	void Update()
 	{
 		// テキスト入力（TextInputMode::DenyControl: エンターやタブ、バックスペースは受け付けない）
-		TextInput::UpdateText(input, TextInputMode::DenyControl);
+		UpdateTextInput();
 
 		// 誤った入力が含まれていたら削除する
 		DeleteWrongInput();
@@ -47,16 +47,27 @@ public:
 		font(target).draw(40, Vec2{ 40, 80 }, theme.wordColor);
 
 		// 入力中の文字を描画する
-		font(input).draw(40, Vec2{ 40, 80 }, theme.inputtingWordColor);
+		font(input).draw(40, Vec2{ 40, 80 }, theme.correctWordColor);
 
-		// 削除された文字を描画する
-		if (not wrongInput.isEmpty())
+		// 入力の最後の文字を描画する
+		if (not lastInput.isEmpty())
 		{
-			font(U"| {}"_fmt(wrongInput)).draw(40, Vec2{ 40, 240 }, theme.correctWordColor);
+			font(U"| {}"_fmt(lastInput)).draw(40, Vec2{ 40, 240 }, theme.inputtingWordColor);
 		}
 	}
 
 private:
+	// テキスト入力を更新し、入力があったら最後の入力文字を記録する
+	void UpdateTextInput()
+	{
+		const String previousInput = input;
+		TextInput::UpdateText(input, TextInputMode::DenyControl);
+		if (previousInput != input)
+		{
+			RecordLastInput();
+		}
+	}
+
 	// 誤った入力を削除する
 	bool DeleteWrongInput()
 	{
@@ -66,26 +77,16 @@ private:
 			return false;
 		}
 
-		// 誤った入力を1文字だけ表示するために、wrongInputをクリアする
-		ClearWrongInput();
-		// 誤った入力の最後の文字を記録する
-		RecordWrongInput();
 		// 誤った入力の最後の文字を削除する
 		RemoveLastInputCharacter();
 
 		return true;
 	}
 
-	// 誤った入力をクリアする
-	void ClearWrongInput()
+	// 最後の入力文字を記録する
+	void RecordLastInput()
 	{
-		wrongInput.clear();
-	}
-
-	// 誤った入力を記録する
-	void RecordWrongInput()
-	{
-		wrongInput.push_back(input.back());
+		lastInput = s3d::String(1, input.back());
 	}
 
 	// 最後の入力文字を削除する
@@ -103,8 +104,8 @@ private:
 		// 入力文字列をクリアする
 		input.clear();
 
-		// 削除された文字列をクリアする
-		wrongInput.clear();
+		// 最後の入力文字をクリアする
+		lastInput.clear();
 	}
 
 	// 色のテーマ
@@ -119,8 +120,8 @@ private:
 	// 入力中の文字列
 	String input;
 
-	// 削除された文字列
-	String wrongInput;
+	// 最後の入力文字
+	String lastInput;
 
 	// フォント設定
 	const Font font{ FontMethod::MSDF, 48, Typeface::Bold };
