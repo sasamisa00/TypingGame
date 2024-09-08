@@ -4,7 +4,7 @@
 #include "MathHelpers.h"
 
 // 調整された長さに基づいてランダムなインデックスから単語を選択する関数
-Array<String> SelectRandomWords(const Array<String>& words, int32 adjustedLength)
+Array<String> SelectRandomWordsByAdjustedLength(const Array<String>& words, int32 adjustedLength)
 {
 	const int32 originalLength = words.size();
 	Array<String> result;
@@ -24,7 +24,7 @@ Array<String> SelectRandomWords(const Array<String>& words, int32 adjustedLength
 }
 
 // 単語リストを処理するメイン関数
-Array<String> ProcessWords(const Array<String>& words)
+Array<String> SelectAdjustedRandomWords(const Array<String>& words)
 {
 	const int32 originalLength = words.size();
 	const int32 adjustedLength = GetAdjustedLength(originalLength);
@@ -36,5 +36,5 @@ Array<String> ProcessWords(const Array<String>& words)
 	}
 
 	// 調整された長さに基づいてランダムな単語を選択
-	return SelectRandomWords(words, adjustedLength);
+	return SelectRandomWordsByAdjustedLength(words, adjustedLength);
 }
