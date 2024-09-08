@@ -90,12 +90,15 @@ Array<String> CyrillicAlphabetToWords(CyrillicAlphabetList cyrillicChar)
 		break;
 	case CyrillicAlphabetList::ъ:
 		// words = ъWords;
+		words = аWords;//ъのリストは空だから、とりあえず'a'に対応するリストを返す
 		break;
 	case CyrillicAlphabetList::ы:
 		// words = ыWords;
+		words = аWords;//ыのリストは空だから、とりあえず'a'に対応するリストを返す
 		break;
 	case CyrillicAlphabetList::ь:
 		// words = ьWords;
+		words = аWords;//ьのリストは空だから、とりあえず'a'に対応するリストを返す
 		break;
 	case CyrillicAlphabetList::э:
 		words = эWords;
@@ -107,7 +110,7 @@ Array<String> CyrillicAlphabetToWords(CyrillicAlphabetList cyrillicChar)
 		words = яWords;
 		break;
 	default:
-		words = аWords;
+		words = аWords;//とりあえず'a'に対応するリストを返す
 		break;
 	}
 

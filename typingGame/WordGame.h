@@ -92,7 +92,7 @@ private:
 
 	bool IsAlphabetChangeButtonPressed() const
 	{
-		return SimpleGUI::Button(U"абв...", AlphabetChangeButtonPosition);
+		return SimpleGUI::Button(U"случайно", AlphabetChangeButtonPosition);
 	}
 
 
