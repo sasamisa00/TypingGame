@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include <Siv3D.hpp>
 #include "AlphabetFunction.h"
+#include "ColorDefinition.h"
 
 
 class WordGame
@@ -25,7 +26,7 @@ public:
 		TextInput::UpdateText(input, TextInputMode::DenyControl);
 
 		// 誤った入力が含まれていたら削除する
-		DeleteWorongInput();
+		DeleteWrongInput();
 
 		// 一致したら次の問題へ移る
 		if (input == target)
@@ -50,31 +51,51 @@ public:
 		font(input).draw(40, Vec2{ 40, 80 }, ColorF{ 0.12 });
 
 		// 削除された文字を描画する
-		if (!worongInput.isEmpty())
+		if (!wrongInput.isEmpty())
 		{
-			font(U"削除された文字: {}"_fmt(worongInput)).draw(40, Vec2{ 40, 240 }, ColorF{ 0.5, 0.0, 0.0 });
+			font(U"wrong input: {}"_fmt(wrongInput)).draw(40, Vec2{ 40, 240 }, Palette::Aliceblue);
 		}
 	}
 
 
 
-	bool DeleteWorongInput()
+	bool DeleteWrongInput()
 	{
-		// 入力がターゲットの先頭と一致しない場合
-		if (not target.starts_with(input))
+		// 入力がターゲットの先頭と一致する場合は何もしない
+		if (target.starts_with(input))
 		{
-			// 誤った入力を1文字だけ表示するために、worongInputをクリアする
-			worongInput.clear();
-
-			// 誤った入力の最後の文字を記録する
-			worongInput.push_back(input.back());
-
-			// 誤った入力の最後の文字を削除する
-			input.pop_back();
-			return true;
+			return false;
 		}
-		return false;
+
+		// 誤った入力を1文字だけ表示するために、wrongInputをクリアする
+		ClearWrongInput();
+		// 誤った入力の最後の文字を記録する
+		RecordWrongInput();
+		// 誤った入力の最後の文字を削除する
+		RemoveLastInputCharacter();
+
+		return true;
 	}
+
+
+	void ClearWrongInput()
+	{
+		
+		wrongInput.clear();
+	}
+
+	void RecordWrongInput()
+	{
+		
+		wrongInput.push_back(input.back());
+	}
+
+	void RemoveLastInputCharacter()
+	{
+		
+		input.pop_back();
+	}
+
 
 
 	void GoNextWord()
@@ -86,7 +107,7 @@ public:
 		input.clear();
 
 		// 削除された文字列をクリアする
-		worongInput.clear();
+		wrongInput.clear();
 	}
 
 private:
@@ -100,7 +121,7 @@ private:
 	String input;
 
 	// 削除された文字列。本当は１文字でいいけど、複数の文字を削除することもあるかもしれないのでstring型にしている
-	String worongInput;
+	String wrongInput;
 
 	const Font font{ FontMethod::MSDF, 48, Typeface::Bold };
 

@@ -827,5 +827,8 @@
     <ClInclude Include="WordGame.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ColorDefinition.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

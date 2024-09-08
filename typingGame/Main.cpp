@@ -2,6 +2,7 @@
 #include "wordList.h"
 #include "ScreenshotManager.h"
 #include "WordGame.h"
+#include "ColorDefinition.h"
 
 
 
@@ -11,7 +12,8 @@
 
 void Main()
 {
-	Scene::SetBackground(Palette::Powderblue);
+	const ColorF backgroundColor = Palette::Powderblue;
+	Scene::SetBackground(backgroundColor);
 
 	// ウィンドウサイズを可変に設定
 	Window::SetStyle(WindowStyle::Sizable);
@@ -19,7 +21,9 @@ void Main()
 
 	WordGame wordGame;
 
-	ScreenshotManager screenshotManager; // スクリーンショットマネージャのインスタンスを作成
+	ScreenshotManager screenshotManager(backgroundColor); // スクリーンショットマネージャのインスタンスを作成
+
+
 
 
 	while (System::Update())
@@ -29,5 +33,7 @@ void Main()
 
 		
 		screenshotManager.Update();
+
+
 	}
 }
