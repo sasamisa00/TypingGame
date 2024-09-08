@@ -34,3 +34,11 @@ void ScreenshotManager::SaveScreenshot()
 	//Print << U"スクリーンショットを保存しました: " << screenshotPath;
 }
 
+void ScreenshotManager::Update()
+{
+	// 特定の条件でスクリーンショットを撮影
+	if (KeyS.down()) // 例えば、Sキーが押されたときにスクリーンショットを撮影
+	{
+		TakeScreenshot();
+	}
+}

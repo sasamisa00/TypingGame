@@ -116,10 +116,6 @@ void Main()
 		wordGame.Update();
 
 		
-		// Sキーが押されたらスクリーンショットを撮る
-		if (KeyS.down())
-		{
-			screenshotManager.TakeScreenshot();
-		}
+		screenshotManager.Update();
 	}
 }
