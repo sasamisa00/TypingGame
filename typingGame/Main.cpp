@@ -1,24 +1,80 @@
 ﻿# include <Siv3D.hpp>
 #include "wordList.h"
 
-bool DeleteWorongInput(String& input, const String& target)
+
+class WordGame
 {
-	if (not target.starts_with(input))
+public:
+	WordGame(const Array<String> words)
+		: words(words)
 	{
-		input.pop_back();
-		return true;
+		// 問題文をランダムに選ぶ
+		target = words.choice();
+
 	}
-	return false;
-}
+	~WordGame()
+	{
+	}
 
-void GoNextWord(const Array<String>& words, String& target, String& input)
-{
+	void Update()
+	{
+		// テキスト入力（TextInputMode::DenyControl: エンターやタブ、バックスペースは受け付けない）
+		TextInput::UpdateText(input, TextInputMode::DenyControl);
+
+		// 誤った入力が含まれていたら削除する
+		DeleteWorongInput();
+
+		// 一致したら次の問題へ移る
+		if (input == target)
+			GoNextWord();
+
+		//描画系
+		Draw();
+	}
+
+	void Draw()
+	{
+		// 問題文を描画する
+		font(target).draw(40, Vec2{ 40, 80 }, ColorF{ 0.98 });
+
+		// 入力中の文字を描画する
+		font(input).draw(40, Vec2{ 40, 80 }, ColorF{ 0.12 });
+	}
+
+	bool DeleteWorongInput()
+	{
+		if (not target.starts_with(input))
+		{
+			input.pop_back();
+			return true;
+		}
+		return false;
+	}
+
+	void GoNextWord()
+	{
+		// 問題文をランダムに選ぶ
+		target = words.choice();
+
+		// 入力文字列をクリアする	
+		input.clear();
+	}
+
+private:
+	//問題のアルファベットを選ぶ
+	const Array<String> words;
+
 	// 問題文をランダムに選ぶ
-	target = words.choice();
+	String target = words.choice();
 
-	// 入力文字列をクリアする	
-	input.clear();
-}
+	// 入力中の文字列
+	String input;
+
+	const Font font{ FontMethod::MSDF, 48, Typeface::Bold };
+
+};
+
+
 
 
 void Main()
@@ -28,30 +84,14 @@ void Main()
 	//問題のアルファベットを選ぶ
 	const Array<String> words = вWords;
 
-    // 問題文をランダムに選ぶ
-	String target = words.choice();
 
-	// 入力中の文字列
-	String input;
 
-	const Font font{ FontMethod::MSDF, 48, Typeface::Bold };
+	WordGame wordGame(words);
 
 	while (System::Update())
 	{
-		// テキスト入力（TextInputMode::DenyControl: エンターやタブ、バックスペースは受け付けない）
-		TextInput::UpdateText(input, TextInputMode::DenyControl);
+		wordGame.Update();
 
-		// 誤った入力が含まれていたら削除する
-		DeleteWorongInput(input, target);
 
-		// 一致したら次の問題へ移る
-		if (input == target)
-			GoNextWord(words, target, input);
-
-		// 問題文を描画する
-		font(target).draw(40, Vec2{ 40, 80 }, ColorF{ 0.98 });
-
-		// 入力中の文字を描画する
-		font(input).draw(40, Vec2{ 40, 80 }, ColorF{ 0.12 });
 	}
 }
