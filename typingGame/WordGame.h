@@ -1,5 +1,4 @@
-﻿// WordGame.h
-#pragma once
+﻿#pragma once
 #include <Siv3D.hpp>
 #include "AlphabetFunction.h"
 #include "ColorDefinition.h"
@@ -32,8 +31,8 @@ public:
 
 private:
 	static constexpr Vec2 TargetWordPosition{ 40, 80 };
-	static constexpr Vec2 InputWordPosition{ 40, 80 };
-	static constexpr Vec2 LastInputPosition{ 40, 240 };
+	static constexpr Vec2  InputWordPosition{ 40, 80 };
+	static constexpr Vec2  LastInputPosition{ 40, 240 };
 	static constexpr Vec2 AlphabetChangeButtonPosition{ 600, 40 };
 	static constexpr int32 FontSize = 40;
 

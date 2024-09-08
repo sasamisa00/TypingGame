@@ -150,6 +150,9 @@
     <ClCompile Include="ScreenshotManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="MathHelpers.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="App\icon.ico">
@@ -828,6 +831,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ColorDefinition.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MathHelpers.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

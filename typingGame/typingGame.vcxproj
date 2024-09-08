@@ -117,6 +117,7 @@
   <ItemGroup>
     <ClCompile Include="AlphabetFunction.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="MathHelpers.cpp" />
     <ClCompile Include="ScreenshotManager.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -329,6 +330,7 @@
   <ItemGroup>
     <ClInclude Include="AlphabetFunction.h" />
     <ClInclude Include="ColorDefinition.h" />
+    <ClInclude Include="MathHelpers.h" />
     <ClInclude Include="ScreenshotManager.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="WordGame.h" />
