@@ -1,7 +1,8 @@
 ﻿#include "ScreenshotManager.h"
 
-ScreenshotManager::ScreenshotManager()
-	: screenshotCount(0) // 初期化
+ScreenshotManager::ScreenshotManager(const ColorF& bgColor)
+	: screenshotCount(0), // 初期化
+	backgroundColor(bgColor) // コンストラクタで指定された背景色を初期化
 {
 }
 
@@ -22,7 +23,7 @@ void ScreenshotManager::FlashWhiteScreen()
 	Scene::SetBackground(ColorF{ 1.0 });
 	System::Update(); // 画面を更新して白くする
 	System::Sleep(100); // 100ミリ秒待機
-	Scene::SetBackground(Palette::Powderblue); // 元の背景色に戻す
+	Scene::SetBackground(backgroundColor); // 元の背景色に戻す
 }
 
 void ScreenshotManager::SaveScreenshot()
@@ -32,3 +33,4 @@ void ScreenshotManager::SaveScreenshot()
 	ScreenCapture::SaveCurrentFrame(screenshotPath);
 	//Print << U"スクリーンショットを保存しました: " << screenshotPath;
 }
+

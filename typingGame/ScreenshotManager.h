@@ -4,13 +4,15 @@
 class ScreenshotManager
 {
 public:
-	ScreenshotManager();
+	// コンストラクタで背景色を指定できるようにする
+	ScreenshotManager(const ColorF& bgColor = Palette::Powderblue);
 
 	// スクリーンショットを撮影して保存する
 	void TakeScreenshot();
 
 private:
 	int screenshotCount; // スクリーンショットの番号を管理する変数
+	const ColorF backgroundColor; // 背景色を管理する変数
 
 	// 画面を白く塗りつぶす関数
 	void FlashWhiteScreen();
@@ -18,3 +20,4 @@ private:
 	// スクリーンショットを保存する関数
 	void SaveScreenshot();
 };
+
