@@ -48,12 +48,19 @@ public:
 
 		// 入力中の文字を描画する
 		font(input).draw(40, Vec2{ 40, 80 }, ColorF{ 0.12 });
+
+		// 削除された文字を描画する
+		if (!deletedChars.isEmpty())
+		{
+			font(U"削除された文字: {}"_fmt(deletedChars)).draw(40, Vec2{ 40, 240 }, ColorF{ 0.5, 0.0, 0.0 });
+		}
 	}
 
 	bool DeleteWorongInput()
 	{
 		if (not target.starts_with(input))
 		{
+			deletedChars.push_back(input.back());
 			input.pop_back();
 			return true;
 		}
@@ -67,6 +74,9 @@ public:
 
 		// 入力文字列をクリアする	
 		input.clear();
+
+		// 削除された文字列をクリアする
+		deletedChars.clear();
 	}
 
 private:
@@ -78,6 +88,9 @@ private:
 
 	// 入力中の文字列
 	String input;
+
+	// 削除された文字列
+	String deletedChars;
 
 	const Font font{ FontMethod::MSDF, 48, Typeface::Bold };
 
