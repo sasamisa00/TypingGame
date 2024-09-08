@@ -11,6 +11,16 @@ bool DeleteWorongInput(String& input, const String& target)
 	return false;
 }
 
+void GoNextWord(const Array<String>& words, String& target, String& input)
+{
+	// 問題文をランダムに選ぶ
+	target = words.choice();
+
+	// 入力文字列をクリアする	
+	input.clear();
+}
+
+
 void Main()
 {
 	Scene::SetBackground(Palette::Powderblue);
@@ -36,13 +46,7 @@ void Main()
 
 		// 一致したら次の問題へ移る
 		if (input == target)
-		{
-			// 問題文をランダムに選ぶ
-			target = words.choice();
-
-			// 入力文字列をクリアする	
-			input.clear();
-		}
+			GoNextWord(words, target, input);
 
 		// 問題文を描画する
 		font(target).draw(40, Vec2{ 40, 80 }, ColorF{ 0.98 });
