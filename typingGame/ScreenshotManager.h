@@ -1,14 +1,20 @@
-#pragma once
+ï»¿#pragma once
 #include <Siv3D.hpp>
 
 class ScreenshotManager
 {
 public:
-    ScreenshotManager();
+	ScreenshotManager();
 
-    // ƒXƒNƒŠ[ƒ“ƒVƒ‡ƒbƒg‚ğB‰e‚µ‚Ä•Û‘¶‚·‚é
-    void TakeScreenshot();
+	// ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ã‚·ãƒ§ãƒƒãƒˆã‚’æ’®å½±ã—ã¦ä¿å­˜ã™ã‚‹
+	void TakeScreenshot();
 
 private:
-    int screenshotCount; // ƒXƒNƒŠ[ƒ“ƒVƒ‡ƒbƒg‚Ì”Ô†‚ğŠÇ—‚·‚é•Ï”
+	int screenshotCount; // ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ã‚·ãƒ§ãƒƒãƒˆã®ç•ªå·ã‚’ç®¡ç†ã™ã‚‹å¤‰æ•°
+
+	// ç”»é¢ã‚’ç™½ãå¡—ã‚Šã¤ã¶ã™é–¢æ•°
+	void FlashWhiteScreen();
+
+	// ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ã‚·ãƒ§ãƒƒãƒˆã‚’ä¿å­˜ã™ã‚‹é–¢æ•°
+	void SaveScreenshot();
 };

@@ -7,10 +7,8 @@ ScreenshotManager::ScreenshotManager()
 
 void ScreenshotManager::TakeScreenshot()
 {
-	// スクリーンショットのファイル名に番号を追加
-	const String screenshotPath = U"screenshot_{}.png"_fmt(screenshotCount);
-	ScreenCapture::SaveCurrentFrame(screenshotPath);
-	//Print << U"スクリーンショットを保存しました: " << screenshotPath;
+	// スクリーンショットを保存
+	SaveScreenshot();
 
 	// 画面を白く塗りつぶす
 	FlashWhiteScreen();
@@ -25,4 +23,12 @@ void ScreenshotManager::FlashWhiteScreen()
 	System::Update(); // 画面を更新して白くする
 	System::Sleep(100); // 100ミリ秒待機
 	Scene::SetBackground(Palette::Powderblue); // 元の背景色に戻す
+}
+
+void ScreenshotManager::SaveScreenshot()
+{
+	// スクリーンショットのファイル名に番号を追加
+	const String screenshotPath = U"screenshot_{}.png"_fmt(screenshotCount);
+	ScreenCapture::SaveCurrentFrame(screenshotPath);
+	//Print << U"スクリーンショットを保存しました: " << screenshotPath;
 }
