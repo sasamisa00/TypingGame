@@ -7,7 +7,7 @@ class WordGame
 {
 public:
 
-	WordGame(CyrillicAlphabetList cyrillicChar)
+	WordGame(CyrillicAlphabetList cyrillicChar = CyrillicAlphabetList::а)
 		: words(CyrillicAlphabetToWords(cyrillicChar))
 	{
 		// 問題文をランダムに選ぶ

@@ -16,16 +16,8 @@ void Main()
 	// ウィンドウサイズを可変に設定
 	Window::SetStyle(WindowStyle::Sizable);
 
-	int screenshotCount = 0; // スクリーンショットの番号を管理する変数
 
-
-	//問題のアルファベットを選ぶ
-	String cyrillicAlphabt;
-	TextInput::UpdateText(cyrillicAlphabt, TextInputMode::DenyControl);
-
-
-
-	WordGame wordGame(CyrillicAlphabetList::б);
+	WordGame wordGame;
 
 	ScreenshotManager screenshotManager; // スクリーンショットマネージャのインスタンスを作成
 
