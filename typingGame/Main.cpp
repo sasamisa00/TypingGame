@@ -1,6 +1,5 @@
 ﻿# include <Siv3D.hpp>
 #include "wordList.h"
-#include "AlphabetFunction.h"
 #include "ScreenshotManager.h"
 #include "WordGame.h"
 
@@ -34,7 +33,7 @@ void Main()
 	while (System::Update())
 	{
 		wordGame.Update();
-
+		WordGame.Draw();
 
 		
 		screenshotManager.Update();

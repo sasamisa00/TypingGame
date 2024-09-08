@@ -39,8 +39,6 @@ public:
 			GoNextWord();
 		}
 
-		//描画系
-		Draw();
 	}
 
 	void Draw()
