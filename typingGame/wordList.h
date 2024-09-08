@@ -1,4 +1,12 @@
 ﻿#pragma once
+#include <Siv3D.hpp>
+
+
+// 調整された長さに基づいてランダムなインデックスから単語を選択する関数
+Array<String> SelectRandomWords(const Array<String>& words, int32 adjustedLength);
+
+// 単語リストを処理するメイン関数
+Array<String> ProcessWords(const Array<String>& words);
 
 
 // 問題文のリスト
