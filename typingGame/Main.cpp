@@ -3,7 +3,7 @@
 
 void Main()
 {
-	Scene::SetBackground(ColorF{ 0.6, 0.8, 0.7 });
+	Scene::SetBackground(Palette::Powderblue);
 
 	
 
