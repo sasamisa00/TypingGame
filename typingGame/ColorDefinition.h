@@ -1,11 +1,19 @@
 ﻿#pragma once
 
-// メインカラー
-const ColorF MainColor = Palette::Powderblue; // #87CEEB
 
-// サブカラー
-const ColorF SubColor = Palette::Deepskyblue; // #00BFFF
+// 色のテーマを管理する構造体
+struct ColorTheme
+{
+	ColorF MainColor = Palette::Powderblue;  // メインカラー
+	ColorF SubColor = Palette::Deepskyblue;  // サブカラー
+	ColorF AccentColor = Palette::Gold;      // アクセントカラー
+};
 
-// アクセントカラー
-const ColorF AccentColor = Palette::Gold; // #FFD700
+
+struct WordColorTheme
+{
+	const ColorF wordColor = Palette::Aliceblue;
+	const ColorF correctWordColor = Palette::Dodgerblue;
+	const ColorF inputtingWordColor = Palette::Black;
+};
 
