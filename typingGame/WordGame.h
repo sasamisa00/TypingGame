@@ -98,7 +98,6 @@ private:
 
 	void UpdateWordsWithRandomAlphabet()
 	{
-		//words = CyrillicAlphabetToWords(GetRandomCyrillicAlphabet());
 		words = SelectAdjustedRandomWords(CyrillicAlphabetToWords(GetRandomCyrillicAlphabet()));
 		AdvanceToNextTargetWord();
 	}
@@ -111,7 +110,6 @@ private:
 		}
 
 		CyrillicAlphabetList alphabet = CharToCyrillicAlphabet(lastInput[0]);
-		//words = CyrillicAlphabetToWords(alphabet);
 		words = SelectAdjustedRandomWords(CyrillicAlphabetToWords(alphabet));
 		AdvanceToNextTargetWord();
 	}
