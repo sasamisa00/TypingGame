@@ -178,3 +178,4 @@ CyrillicAlphabetList CharToCyrillicAlphabet(const char32_t ch)
 	//default: throw std::invalid_argument("Invalid Cyrillic character"); // 無効な文字の場合は例外を投げる
 	}
 }
+
