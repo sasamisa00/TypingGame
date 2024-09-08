@@ -9,7 +9,7 @@ void Main()
 	const Array<String> words = вWords;
 
     // 問題文をランダムに選ぶ
-	String target = words.choice();//аWords.choice();
+	String target = words.choice();
 
 	// 入力中の文字列
 	String input;
@@ -31,7 +31,7 @@ void Main()
 		if (input == target)
 		{
 			// 問題文をランダムに選ぶ
-			target = words.choice();//аWords.choice();
+			target = words.choice();
 
 			// 入力文字列をクリアする	
 			input.clear();
