@@ -330,6 +330,7 @@
     <ClInclude Include="AlphabetFunction.h" />
     <ClInclude Include="ScreenshotManager.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="WordGame.h" />
     <ClInclude Include="wordList.h" />
   </ItemGroup>
   <ItemGroup>

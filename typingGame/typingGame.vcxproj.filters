@@ -824,5 +824,8 @@
     <ClInclude Include="ScreenshotManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="WordGame.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
