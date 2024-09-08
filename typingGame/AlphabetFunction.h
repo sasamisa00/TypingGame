@@ -4,3 +4,5 @@
 
 Array<String> CyrillicAlphabetToWords(CyrillicAlphabetList cyrillicChar);
 CyrillicAlphabetList GetRandomCyrillicAlphabet();
+
+CyrillicAlphabetList CharToCyrillicAlphabet(const char32_t ch);

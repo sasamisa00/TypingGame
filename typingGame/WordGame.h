@@ -47,10 +47,12 @@ private:
 			StoreLastInput();
 		}
 
-		// ctrl key が押された場合にUpdateWordsWithRandomAlphabetを呼び出す
+		// ctrl key が押された場合に、lastInput の文字によってwordを変更する
 		if (KeyControl.down())
 		{
-			UpdateWordsWithRandomAlphabet();
+			//UpdateWordsWithRandomAlphabet();
+
+			//words = CyrillicAlphabetToWords(lastInput);
 		}
 	}
 

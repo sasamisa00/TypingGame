@@ -131,3 +131,46 @@ CyrillicAlphabetList GetRandomCyrillicAlphabet()
 
 	return allAlphabets.choice();
 }
+
+
+// 文字を対応するCyrillicAlphabetListの列挙型に変換する関数
+CyrillicAlphabetList CharToCyrillicAlphabet(const char32_t ch)
+{
+	switch (ch)
+	{
+	case U'а': return CyrillicAlphabetList::а; // 'а' に対応する列挙型
+	case U'б': return CyrillicAlphabetList::б; // 'б' に対応する列挙型
+	case U'в': return CyrillicAlphabetList::в; // 'в' に対応する列挙型
+	case U'г': return CyrillicAlphabetList::г; // 'г' に対応する列挙型
+	case U'д': return CyrillicAlphabetList::д; // 'д' に対応する列挙型
+	case U'е': return CyrillicAlphabetList::е; // 'е' に対応する列挙型
+	case U'ё': return CyrillicAlphabetList::ё; // 'ё' に対応する列挙型
+	case U'ж': return CyrillicAlphabetList::ж; // 'ж' に対応する列挙型
+	case U'з': return CyrillicAlphabetList::з; // 'з' に対応する列挙型
+	case U'и': return CyrillicAlphabetList::и; // 'и' に対応する列挙型
+	case U'й': return CyrillicAlphabetList::й; // 'й' に対応する列挙型
+	case U'к': return CyrillicAlphabetList::к; // 'к' に対応する列挙型
+	case U'л': return CyrillicAlphabetList::л; // 'л' に対応する列挙型
+	case U'м': return CyrillicAlphabetList::м; // 'м' に対応する列挙型
+	case U'н': return CyrillicAlphabetList::н; // 'н' に対応する列挙型
+	case U'о': return CyrillicAlphabetList::о; // 'о' に対応する列挙型
+	case U'п': return CyrillicAlphabetList::п; // 'п' に対応する列挙型
+	case U'р': return CyrillicAlphabetList::р; // 'р' に対応する列挙型
+	case U'с': return CyrillicAlphabetList::с; // 'с' に対応する列挙型
+	case U'т': return CyrillicAlphabetList::т; // 'т' に対応する列挙型
+	case U'у': return CyrillicAlphabetList::у; // 'у' に対応する列挙型
+	case U'ф': return CyrillicAlphabetList::ф; // 'ф' に対応する列挙型
+	case U'х': return CyrillicAlphabetList::х; // 'х' に対応する列挙型
+	case U'ц': return CyrillicAlphabetList::ц; // 'ц' に対応する列挙型
+	case U'ч': return CyrillicAlphabetList::ч; // 'ч' に対応する列挙型
+	case U'ш': return CyrillicAlphabetList::ш; // 'ш' に対応する列挙型
+	case U'щ': return CyrillicAlphabetList::щ; // 'щ' に対応する列挙型
+	case U'ъ': return CyrillicAlphabetList::ъ; // 'ъ' に対応する列挙型
+	case U'ы': return CyrillicAlphabetList::ы; // 'ы' に対応する列挙型
+	case U'ь': return CyrillicAlphabetList::ь; // 'ь' に対応する列挙型
+	case U'э': return CyrillicAlphabetList::э; // 'э' に対応する列挙型
+	case U'ю': return CyrillicAlphabetList::ю; // 'ю' に対応する列挙型
+	case U'я': return CyrillicAlphabetList::я; // 'я' に対応する列挙型
+	default: throw std::invalid_argument("Invalid Cyrillic character"); // 無効な文字の場合は例外を投げる
+	}
+}
