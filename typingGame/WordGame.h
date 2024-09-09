@@ -40,6 +40,8 @@ private:
 	static constexpr int32 scoreFontSize = FontSize / 2;
 	static constexpr int32 EncouragementThreshold = 30 / 2;
 
+
+
 	const Array<String> encouragementMessages = {
 	U"フォースと共にあれ！",
 	U"その調子だ、若きパダワン！",
