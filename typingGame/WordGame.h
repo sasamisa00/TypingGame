@@ -122,7 +122,8 @@ private:
 
 	void RenderScore() const
 	{
-		font(U"文字数: {}"_fmt(score)).draw(scoreFontSize, ScorePosition, theme.wordColor); // スコアの文字色をwordの色と揃える
+		ColorF scoreColor = GetScoreColor();
+		font(U"文字数: {}"_fmt(score)).draw(scoreFontSize, ScorePosition, scoreColor); // スコアの文字色を動的に変更
 	}
 
 	void StoreLastInput()
@@ -151,6 +152,16 @@ private:
 	{
 		score += static_cast<int32>(input.length());
 	}
+
+	ColorF GetScoreColor() const
+	{
+		// スコアに応じて色を変える。スコアが高いほどオレンジにする。
+		double redIntensity = Min(1.0, 0.1 + score * 0.01);
+		double greenIntensity = Min(0.5, 0.05 + score * 0.005);
+		return ColorF(redIntensity, greenIntensity, 0.0);
+	}
+
+
 
 	const WordColorTheme& theme;
 
