@@ -27,6 +27,7 @@ public:
 		RenderTargetWord();
 		RenderInputWord();
 		RenderLastInput();
+		RenderScore(); // スコアを描画
 	}
 
 private:
@@ -34,6 +35,7 @@ private:
 	static constexpr Vec2  InputWordPosition{ 40, 80 };
 	static constexpr Vec2  LastInputPosition{ 40, 240 };
 	static constexpr Vec2 AlphabetChangeButtonPosition{ 600, 40 };
+	static constexpr Vec2 ScorePosition{ 40, 320 }; // スコアの表示位置
 	static constexpr int32 FontSize = 40;
 
 
@@ -44,6 +46,7 @@ private:
 		if (HasInputChanged(previousInput, input))
 		{
 			StoreLastInput();
+			
 		}
 
 		// ctrl key が押された場合に、lastInput の文字によってwordを変更する
@@ -75,7 +78,9 @@ private:
 	{
 		if (input == target)
 		{
+			UpdateScore(); // スコアを更新
 			AdvanceToNextTargetWord();
+			
 		}
 	}
 
@@ -85,13 +90,14 @@ private:
 	{
 		if (IsAlphabetChangeButtonPressed())
 		{
-			UpdateWordsWithRandomAlphabet();
+			//UpdateWordsWithRandomAlphabet();
+			SetWordsStartingWithLastInput();
 		}
 	}
 
 	bool IsAlphabetChangeButtonPressed() const
 	{
-		return SimpleGUI::Button(U"случайно", AlphabetChangeButtonPosition);
+		return SimpleGUI::Button(U"文字変更", AlphabetChangeButtonPosition);
 	}
 
 
@@ -133,6 +139,10 @@ private:
 		}
 	}
 
+	void RenderScore() const
+	{
+		font(U"スコア: {}"_fmt(score)).draw(ScorePosition, Palette::Black);
+	}
 	void StoreLastInput()
 	{
 		lastInput = s3d::String(1, input.back());
@@ -155,12 +165,18 @@ private:
 		target = words.choice();
 	}
 
+	void UpdateScore()
+	{
+		score += input.length();
+	}
+
 	const WordColorTheme& theme;
 
 	Array<String> words;
 	String target;
 	String input;
 	String lastInput;
+	int32 score = 0; // スコアを保持する変数
 
 	const Font font{ FontMethod::MSDF, FontSize, Typeface::Bold };
 };
