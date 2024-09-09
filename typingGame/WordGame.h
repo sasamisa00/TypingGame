@@ -27,7 +27,7 @@ public:
 		RenderTargetWord();
 		RenderInputWord();
 		RenderLastInput();
-		RenderScore(); // スコアを描画
+		RenderScore();
 	}
 
 private:
@@ -35,10 +35,33 @@ private:
 	static constexpr Vec2 InputWordPosition{ 40, 80 };
 	static constexpr Vec2 LastInputPosition{ 40, 240 };
 	static constexpr Vec2 AlphabetChangeButtonPosition{ 600, 40 };
-	static constexpr Vec2 ScorePosition{ 600, 100 }; // スコアの表示位置をボタンと重ならないように調整
-	static constexpr int32 FontSize = 40; // 文字サイズを40に統一
+	static constexpr Vec2 ScorePosition{ 600, 100 };
+	static constexpr int32 FontSize = 40;
 	static constexpr int32 scoreFontSize = FontSize / 2;
-	static constexpr int32 EncouragementThreshold = 15; // エールを送るスコアの閾値
+	static constexpr int32 EncouragementThreshold = 30 / 2;
+
+	const Array<String> encouragementMessages = {
+	U"フォースと共にあれ！",
+	U"その調子だ、若きパダワン！",
+	U"よくやった、ジェダイの騎士よ！",
+	U"素晴らしい進歩だ、フォースを感じる！",
+	U"そのまま続けるのだ、フォースが導く！",
+	U"素晴らしい成果だ、ジェダイの道を歩んでいる！",
+	U"君はフォースに満ちている！",
+	U"その調子で頑張るのだ、ジェダイよ！",
+	U"素晴らしい努力だ、フォースが共にある！",
+	U"君は最高だ、フォースの守護者よ！",
+	U"フォースの力を信じるのだ！",
+	U"君の努力はフォースに認められている！",
+	U"ジェダイの心を持ち続けるのだ！",
+	U"フォースの導きに従うのだ！",
+	U"君の成長はフォースの証だ！",
+	U"フォースの力を感じるか？",
+	U"その道を進むのだ、ジェダイよ！",
+	U"フォースの光が君を照らしている！",
+	U"君の努力は無駄ではない、フォースが証明している！",
+	U"フォースの力を信じて、前進するのだ！"
+	};
 
 
 	void HandleTextInput()
@@ -50,7 +73,6 @@ private:
 			StoreLastInput();
 		}
 
-		// ctrl key が押された場合に、lastInput の文字によってwordを変更する
 		if (KeyControl.down())
 		{
 			SetWordsStartingWithLastInput();
@@ -76,7 +98,7 @@ private:
 	void CheckAndAdvanceToNextWord()
 	{
 		if (input != target) return;
-		UpdateScore(); // スコアを更新
+		UpdateScore();
 		AdvanceToNextTargetWord();
 	}
 
@@ -101,7 +123,7 @@ private:
 	{
 		if (lastInput.isEmpty()) return;
 
-		CyrillicAlphabetList alphabet = CharToCyrillicAlphabet(lastInput[0]);
+		const CyrillicAlphabetList alphabet = CharToCyrillicAlphabet(lastInput[0]);
 		words = SelectAdjustedRandomWords(CyrillicAlphabetToWords(alphabet));
 		AdvanceToNextTargetWord();
 	}
@@ -125,7 +147,7 @@ private:
 	void RenderScore() const
 	{
 		ColorF scoreColor = GetScoreColor();
-		font(U"文字数: {}"_fmt(score)).draw(scoreFontSize, ScorePosition, scoreColor); // スコアの文字色を動的に変更
+		font(U"文字数: {}"_fmt(score)).draw(scoreFontSize, ScorePosition, scoreColor);
 	}
 
 	void StoreLastInput()
@@ -153,7 +175,7 @@ private:
 	void UpdateScore()
 	{
 		score += static_cast<int32>(input.length());
-		SendEncouragementIfNeeded(); // スコアが30上がるたびにエールを送る
+		SendEncouragementIfNeeded();
 	}
 
 	void SendEncouragementIfNeeded()
@@ -167,13 +189,13 @@ private:
 
 	void ShowEncouragementToast() const
 	{
-		ToastNotificationItem item{ .title = U"エール", .message = U"素晴らしい！頑張ってください！" };
+		const String& message = encouragementMessages.choice();
+		ToastNotificationItem item{ .title = U"応援", .message = message };
 		Platform::Windows::ToastNotification::Show(item);
 	}
 
 	ColorF GetScoreColor() const
 	{
-		// スコアに応じて色を変える。スコアが高いほどオレンジにする。
 		double redIntensity = Min(1.0, 0.1 + score * 0.01);
 		double greenIntensity = Min(0.5, 0.05 + score * 0.005);
 		return ColorF(redIntensity, greenIntensity, 0.0);
@@ -184,8 +206,8 @@ private:
 	String target;
 	String input;
 	String lastInput;
-	int32 score = 0; // スコアを保持する変数
-	int32 lastEncouragementScore = 0; // 前回の通知時のスコア
+	int32 score = 0;
+	int32 lastEncouragementScore = 0;
 
 	const Font font{ FontMethod::MSDF, FontSize, Typeface::Bold };
 };
