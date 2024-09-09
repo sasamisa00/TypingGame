@@ -35,8 +35,9 @@ private:
 	static constexpr Vec2 InputWordPosition{ 40, 80 };
 	static constexpr Vec2 LastInputPosition{ 40, 240 };
 	static constexpr Vec2 AlphabetChangeButtonPosition{ 600, 40 };
-	static constexpr Vec2 ScorePosition{ 40, 320 }; // スコアの表示位置
-	static constexpr int32 FontSize = 40;
+	static constexpr Vec2 ScorePosition{ 600, 100 }; // スコアの表示位置をボタンと重ならないように調整
+	static constexpr int32 FontSize = 40; // 文字サイズを40に統一
+	static constexpr int32 scoreFontSize = FontSize / 2;
 
 	void HandleTextInput()
 	{
@@ -121,7 +122,7 @@ private:
 
 	void RenderScore() const
 	{
-		font(U"スコア: {}"_fmt(score)).draw(ScorePosition, Palette::Black);
+		font(U"文字数: {}"_fmt(score)).draw(scoreFontSize, ScorePosition, theme.wordColor); // スコアの文字色をwordの色と揃える
 	}
 
 	void StoreLastInput()
