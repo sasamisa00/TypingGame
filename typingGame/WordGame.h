@@ -32,12 +32,11 @@ public:
 
 private:
 	static constexpr Vec2 TargetWordPosition{ 40, 80 };
-	static constexpr Vec2  InputWordPosition{ 40, 80 };
-	static constexpr Vec2  LastInputPosition{ 40, 240 };
+	static constexpr Vec2 InputWordPosition{ 40, 80 };
+	static constexpr Vec2 LastInputPosition{ 40, 240 };
 	static constexpr Vec2 AlphabetChangeButtonPosition{ 600, 40 };
 	static constexpr Vec2 ScorePosition{ 40, 320 }; // スコアの表示位置
 	static constexpr int32 FontSize = 40;
-
 
 	void HandleTextInput()
 	{
@@ -46,7 +45,6 @@ private:
 		if (HasInputChanged(previousInput, input))
 		{
 			StoreLastInput();
-			
 		}
 
 		// ctrl key が押された場合に、lastInput の文字によってwordを変更する
@@ -63,10 +61,8 @@ private:
 
 	void HandleIncorrectInput()
 	{
-		if (IsInputIncorrect())
-		{
-			RemoveLastInputCharacter();
-		}
+		if (not IsInputIncorrect()) return;
+		RemoveLastInputCharacter();
 	}
 
 	bool IsInputIncorrect() const
@@ -76,31 +72,21 @@ private:
 
 	void CheckAndAdvanceToNextWord()
 	{
-		if (input == target)
-		{
-			UpdateScore(); // スコアを更新
-			AdvanceToNextTargetWord();
-			
-		}
+		if (input != target) return;
+		UpdateScore(); // スコアを更新
+		AdvanceToNextTargetWord();
 	}
-
-
 
 	void HandleAlphabetChange()
 	{
-		if (IsAlphabetChangeButtonPressed())
-		{
-			//UpdateWordsWithRandomAlphabet();
-			SetWordsStartingWithLastInput();
-		}
+		if (not IsAlphabetChangeButtonPressed()) return;
+		SetWordsStartingWithLastInput();
 	}
 
 	bool IsAlphabetChangeButtonPressed() const
 	{
 		return SimpleGUI::Button(U"文字変更", AlphabetChangeButtonPosition);
 	}
-
-
 
 	void UpdateWordsWithRandomAlphabet()
 	{
@@ -110,16 +96,12 @@ private:
 
 	void SetWordsStartingWithLastInput()
 	{
-		if (lastInput.isEmpty())
-		{
-			return;
-		}
+		if (lastInput.isEmpty()) return;
 
 		CyrillicAlphabetList alphabet = CharToCyrillicAlphabet(lastInput[0]);
 		words = SelectAdjustedRandomWords(CyrillicAlphabetToWords(alphabet));
 		AdvanceToNextTargetWord();
 	}
-
 
 	void RenderTargetWord() const
 	{
@@ -133,16 +115,15 @@ private:
 
 	void RenderLastInput() const
 	{
-		if (!lastInput.isEmpty())
-		{
-			font(U"| {}"_fmt(lastInput)).draw(LastInputPosition, theme.inputtingWordColor);
-		}
+		if (lastInput.isEmpty()) return;
+		font(U"| {}"_fmt(lastInput)).draw(LastInputPosition, theme.inputtingWordColor);
 	}
 
 	void RenderScore() const
 	{
 		font(U"スコア: {}"_fmt(score)).draw(ScorePosition, Palette::Black);
 	}
+
 	void StoreLastInput()
 	{
 		lastInput = s3d::String(1, input.back());
@@ -167,7 +148,7 @@ private:
 
 	void UpdateScore()
 	{
-		score += input.length();
+		score += static_cast<int32>(input.length());
 	}
 
 	const WordColorTheme& theme;
@@ -180,5 +161,3 @@ private:
 
 	const Font font{ FontMethod::MSDF, FontSize, Typeface::Bold };
 };
-
-
