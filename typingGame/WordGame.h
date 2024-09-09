@@ -38,6 +38,8 @@ private:
 	static constexpr Vec2 ScorePosition{ 600, 100 }; // スコアの表示位置をボタンと重ならないように調整
 	static constexpr int32 FontSize = 40; // 文字サイズを40に統一
 	static constexpr int32 scoreFontSize = FontSize / 2;
+	static constexpr int32 EncouragementThreshold = 15; // エールを送るスコアの閾値
+
 
 	void HandleTextInput()
 	{
@@ -151,6 +153,22 @@ private:
 	void UpdateScore()
 	{
 		score += static_cast<int32>(input.length());
+		SendEncouragementIfNeeded(); // スコアが30上がるたびにエールを送る
+	}
+
+	void SendEncouragementIfNeeded()
+	{
+		if (score - lastEncouragementScore >= EncouragementThreshold)
+		{
+			lastEncouragementScore = score;
+			ShowEncouragementToast();
+		}
+	}
+
+	void ShowEncouragementToast() const
+	{
+		ToastNotificationItem item{ .title = U"エール", .message = U"素晴らしい！頑張ってください！" };
+		Platform::Windows::ToastNotification::Show(item);
 	}
 
 	ColorF GetScoreColor() const
@@ -161,15 +179,13 @@ private:
 		return ColorF(redIntensity, greenIntensity, 0.0);
 	}
 
-
-
 	const WordColorTheme& theme;
-
 	Array<String> words;
 	String target;
 	String input;
 	String lastInput;
 	int32 score = 0; // スコアを保持する変数
+	int32 lastEncouragementScore = 0; // 前回の通知時のスコア
 
 	const Font font{ FontMethod::MSDF, FontSize, Typeface::Bold };
 };
