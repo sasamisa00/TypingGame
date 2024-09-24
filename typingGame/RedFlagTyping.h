@@ -11,7 +11,7 @@ public:
 	RedFlagTyping(const WordColorTheme& wordColorTheme = WordColorTheme(), CyrillicAlphabetList cyrillicChar = CyrillicAlphabetList::а)
 		: theme(wordColorTheme), words(shortparis_RedFlag) // shortparis_RedFlagから問題を作成するように変更
 	{
-		SelectRandomTargetWord();
+		SetRandomMusicAndSetHeadWord();
 	}
 
 	~RedFlagTyping() = default;
@@ -33,23 +33,11 @@ public:
 	}
 
 private:
-	static constexpr Vec2 TargetWordPosition{ 40, 80 };
-	static constexpr Vec2 InputWordPosition{ 40, 80 };
-	static constexpr Vec2 LastInputPosition{ 40, 240 };
-	static constexpr Vec2 AlphabetChangeButtonPosition{ 600, 40 };
-	static constexpr Vec2 ScorePosition{ 600, 100 };
-	static constexpr int32 FontSize = 40;
-	static constexpr int32 scoreFontSize = FontSize / 2;
-	static constexpr int32 EncouragementThreshold = 30 / 2;
+	void ChangeMusic()
+	{
+		// ここに曲変更の処理を書く
 
-	Array<Array<String>> words;
-	String target;
-	String input;
-	String lastInput;
-	int32 score = 0;
-	int32 lastEncouragementScore = 0;
-	WordColorTheme theme;
-	Font font{ FontSize };
+	}
 
 	void HandleTextInput()
 	{
@@ -62,7 +50,7 @@ private:
 
 		if (KeyControl.down())
 		{
-			//SetWordsStartingWithLastInput();
+			SetRandomMusicAlbum();
 		}
 	}
 
@@ -91,23 +79,28 @@ private:
 
 	void HandleAlphabetChange()
 	{
-		if (not IsAlphabetChangeButtonPressed()) return;
-		//SetWordsStartingWithLastInput();
+		if (not IsMusicChangeButtonPressed()) return;
+
+		SetRandomMusicAlbum();
 	}
 
-	bool IsAlphabetChangeButtonPressed() const
+	bool IsMusicChangeButtonPressed() const
 	{
-		return SimpleGUI::Button(U"文字変更", AlphabetChangeButtonPosition);
+		return SimpleGUI::Button(U"曲変更", AlphabetChangeButtonPosition);
 	}
 
-	/*void SetWordsStartingWithLastInput()
-	{
-		if (lastInput.isEmpty()) return;
 
-		const CyrillicAlphabetList alphabet = CharToCyrillicAlphabet(lastInput[0]);
-		words = SelectAdjustedRandomWords(CyrillicAlphabetToWords(alphabet));
+	void SetRandomMusicAlbum()
+	{
+		words = shortparis_RedFlag;
 		AdvanceToNextTargetWord();
-	}*/
+
+		//if (lastInput.isEmpty()) return;
+
+		/*const CyrillicAlphabetList alphabet = CharToCyrillicAlphabet(lastInput[0]);
+		words = SelectAdjustedRandomWords(CyrillicAlphabetToWords(alphabet));
+		AdvanceToNextTargetWord();*/
+	}
 
 
 	void RenderTargetWord() const
@@ -144,15 +137,16 @@ private:
 
 	void AdvanceToNextTargetWord()
 	{
-		SelectRandomTargetWord();
+		SetRandomMusicAndSetHeadWord();
 		input.clear();
 		lastInput.clear();
 	}
 
-	void SelectRandomTargetWord()
+	void SetRandomMusicAndSetHeadWord()
 	{
 		const Array<String>& selectedArray = words.choice();
-		target = selectedArray.choice();
+		//target = selectedArray.choice();
+		target = selectedArray[0];
 	}
 
 	void UpdateScore()
@@ -183,5 +177,23 @@ private:
 		double greenIntensity = 1.0 - redIntensity;
 		return ColorF(redIntensity, greenIntensity, 0.0);
 	}
+
+	static constexpr Vec2 TargetWordPosition{ 40, 80 };
+	static constexpr Vec2 InputWordPosition{ 40, 80 };
+	static constexpr Vec2 LastInputPosition{ 40, 240 };
+	static constexpr Vec2 AlphabetChangeButtonPosition{ 600, 40 };
+	static constexpr Vec2 ScorePosition{ 600, 10 };
+	static constexpr int32 FontSize = 40;
+	static constexpr int32 scoreFontSize = FontSize / 2;
+	static constexpr int32 EncouragementThreshold = 30 / 2;
+
+	Array<Array<String>> words;
+	String target;
+	String input;
+	String lastInput;
+	int32 score = 0;
+	int32 lastEncouragementScore = 0;
+	WordColorTheme theme;
+	Font font{ FontSize };
 };
 
