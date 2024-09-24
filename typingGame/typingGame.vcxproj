@@ -331,8 +331,11 @@
   <ItemGroup>
     <ClInclude Include="AlphabetFunction.h" />
     <ClInclude Include="ColorDefinition.h" />
+    <ClInclude Include="EncouragingMessages.h" />
     <ClInclude Include="MathHelpers.h" />
+    <ClInclude Include="RedFlagTyping.h" />
     <ClInclude Include="ScreenshotManager.h" />
+    <ClInclude Include="shortparis.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="WordGame.h" />
     <ClInclude Include="wordList.h" />
