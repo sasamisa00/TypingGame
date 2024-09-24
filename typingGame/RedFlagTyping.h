@@ -9,49 +9,49 @@ class RedFlagTyping
 {
 public:
 	RedFlagTyping(const WordColorTheme& wordColorTheme = WordColorTheme(), CyrillicAlphabetList cyrillicChar = CyrillicAlphabetList::а)
-		: theme(wordColorTheme), words(shortparis_RedFlag) // shortparis_RedFlagから問題を作成するように変更
+		: theme(wordColorTheme)//, words(shortparis_RedFlag) // shortparis_RedFlagから問題を作成するように変更
+		, album(shortparis_RedFlag)
+		, track(shortparis_RedFlag[0])
+		, targetWord(track[0])
+		, input()
+		, lastInput()
+		, currentLylicLine(0)
+
 	{
-		SetRandomMusicAndSetHeadWord();
+		//Initialize();
 	}
 
 	~RedFlagTyping() = default;
 
 	void Update()
 	{
-		HandleTextInput();
-		HandleIncorrectInput();
-		CheckAndAdvanceToNextWord();
-		HandleAlphabetChange();
+		UpdateTextInput();
+		UpdateLylicLine();
+		UpdateTrack();
+
 	}
 
 	void Draw() const
 	{
-		RenderTargetWord();
-		RenderInputWord();
-		RenderLastInput();
-		RenderScore();
+		DrawTargetWord();
+		DrawInputWord();
+		DrawLastInput();
+		DrawScore();
 	}
 
 private:
-	void ChangeMusic()
-	{
-		// ここに曲変更の処理を書く
-
-	}
-
-	void HandleTextInput()
+	void UpdateTextInput()
 	{
 		const String previousInput = input;
 		TextInput::UpdateText(input, TextInputMode::DenyControl);
+
 		if (HasInputChanged(previousInput, input))
 		{
 			StoreLastInput();
 		}
 
-		if (KeyControl.down())
-		{
-			SetRandomMusicAlbum();
-		}
+		HandleIncorrectInput();
+
 	}
 
 	bool HasInputChanged(const String& previousInput, const String& currentInput) const
@@ -67,59 +67,75 @@ private:
 
 	bool IsInputIncorrect() const
 	{
-		return !target.starts_with(input);
+		return not targetWord.starts_with(input);
 	}
 
-	void CheckAndAdvanceToNextWord()
+	bool IsInputCompleted() const
 	{
-		if (input != target) return;
+		return input == targetWord;
+	}
+
+	void ForwardLylicLine()
+	{
+		currentLylicLine = (currentLylicLine + 1) % track.size();
+		targetWord = track[currentLylicLine];
+	}
+
+	void UpdateLylicLine()
+	{
+		if (not IsInputCompleted()) return;
+
 		UpdateScore();
-		AdvanceToNextTargetWord();
+		ForwardLylicLine();
+		
 	}
 
-	void HandleAlphabetChange()
+	void UpdateTrack()
 	{
-		if (not IsMusicChangeButtonPressed()) return;
+		if (not SimpleGUI::Button(U"曲変更", TrachChageButtonPos)) return;
 
-		SetRandomMusicAlbum();
+		SetRandomTrack();
 	}
 
-	bool IsMusicChangeButtonPressed() const
+
+	void Initialize()
 	{
-		return SimpleGUI::Button(U"曲変更", AlphabetChangeButtonPosition);
+		targetWord = track[0];
+		input.clear();
+		lastInput.clear();
+		currentLylicLine = 0;
 	}
 
-
-	void SetRandomMusicAlbum()
+	void SetRandomTrack()
 	{
-		words = shortparis_RedFlag;
-		AdvanceToNextTargetWord();
+		track = album.choice();
 
-		//if (lastInput.isEmpty()) return;
-
-		/*const CyrillicAlphabetList alphabet = CharToCyrillicAlphabet(lastInput[0]);
-		words = SelectAdjustedRandomWords(CyrillicAlphabetToWords(alphabet));
-		AdvanceToNextTargetWord();*/
+		Initialize();
 	}
 
-
-	void RenderTargetWord() const
+	void DrawTrackTitle() const
 	{
-		font(target).draw(TargetWordPosition, theme.wordColor);
+
+		font(U"{}"_fmt(track[0])).draw(TrackTitlePos, theme.wordColor);
 	}
 
-	void RenderInputWord() const
+	void DrawTargetWord() const
+	{
+		font(targetWord).draw(TargetWordPosition, theme.wordColor);
+	}
+
+	void DrawInputWord() const
 	{
 		font(input).draw(InputWordPosition, theme.correctWordColor);
 	}
 
-	void RenderLastInput() const
+	void DrawLastInput() const
 	{
 		if (lastInput.isEmpty()) return;
 		font(U"| {}"_fmt(lastInput)).draw(LastInputPosition, theme.inputtingWordColor);
 	}
 
-	void RenderScore() const
+	void DrawScore() const
 	{
 		ColorF scoreColor = GetScoreColor();
 		font(U"文字数: {}"_fmt(score)).draw(scoreFontSize, ScorePosition, scoreColor);
@@ -135,19 +151,7 @@ private:
 		input.pop_back();
 	}
 
-	void AdvanceToNextTargetWord()
-	{
-		SetRandomMusicAndSetHeadWord();
-		input.clear();
-		lastInput.clear();
-	}
 
-	void SetRandomMusicAndSetHeadWord()
-	{
-		const Array<String>& selectedArray = words.choice();
-		//target = selectedArray.choice();
-		target = selectedArray[0];
-	}
 
 	void UpdateScore()
 	{
@@ -181,14 +185,18 @@ private:
 	static constexpr Vec2 TargetWordPosition{ 40, 80 };
 	static constexpr Vec2 InputWordPosition{ 40, 80 };
 	static constexpr Vec2 LastInputPosition{ 40, 240 };
-	static constexpr Vec2 AlphabetChangeButtonPosition{ 600, 40 };
+	static constexpr Vec2 TrachChageButtonPos{ 600, 40 };
 	static constexpr Vec2 ScorePosition{ 600, 10 };
+	static constexpr Vec2 TrackTitlePos{ 10,10 };
 	static constexpr int32 FontSize = 40;
 	static constexpr int32 scoreFontSize = FontSize / 2;
 	static constexpr int32 EncouragementThreshold = 30 / 2;
 
-	Array<Array<String>> words;
-	String target;
+	//Array<Array<String>> words;
+	Array<Array<String>> album;
+	Array<String> track;
+	String targetWord;
+	int32 currentLylicLine;
 	String input;
 	String lastInput;
 	int32 score = 0;
