@@ -37,6 +37,7 @@ public:
 		DrawInputWord();
 		DrawLastInput();
 		DrawScore();
+		DrawTrackTitle();
 	}
 
 private:
