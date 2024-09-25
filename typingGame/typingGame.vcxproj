@@ -336,6 +336,7 @@
     <ClInclude Include="FoxBoySentences.h" />
     <ClInclude Include="FoxTyping.h" />
     <ClInclude Include="MathHelpers.h" />
+    <ClInclude Include="pageContents.h" />
     <ClInclude Include="RedFlagTyping.h" />
     <ClInclude Include="ScreenshotManager.h" />
     <ClInclude Include="shortparisLylics.h" />

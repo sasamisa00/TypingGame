@@ -866,5 +866,8 @@
     <ClInclude Include="FoxBoySentences.h">
       <Filter>Header Files\foxboy</Filter>
     </ClInclude>
+    <ClInclude Include="pageContents.h">
+      <Filter>Header Files\foxboy</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -176,12 +176,20 @@ const PageSentence foxBoyPage16 =
 };
 
 
-
-
-const Array<PageSentence> foxBoySentences =
+const PageSentence EMPTY_PAGE =
 {
-	U"",
-	U"",
+	U""
+
+};
+
+
+
+
+
+const Array<PageSentence> FOX_BOY_SEBTENCES =
+{
+	EMPTY_PAGE,
+	EMPTY_PAGE,
 	foxBoyPage1,
 	foxBoyPage2,
 	foxBoyPage3,
@@ -198,8 +206,11 @@ const Array<PageSentence> foxBoySentences =
 	foxBoyPage14,
 	foxBoyPage15,
 	foxBoyPage16,
-	U"",
-	U"",
+	EMPTY_PAGE,
+	EMPTY_PAGE
 };
 
-	
+
+
+
+
