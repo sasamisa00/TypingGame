@@ -9,13 +9,12 @@ class FoxTyping
 {
 public:
 	FoxTyping(const WordColorTheme& wordColorTheme = WordColorTheme(), CyrillicAlphabetList cyrillicChar = CyrillicAlphabetList::а)
-		: theme(wordColorTheme)//, words(shortparis_RedFlag) // shortparis_RedFlagから問題を作成するように変更
-		//, album(shortparis_RedFlag)
-		, track(shortparis_RedFlag[0])
-		, targetWord(track[0])
+		: theme(wordColorTheme)
+		//, track(foxBoySentences[0])
+		, targetWord(U"test")
 		, input()
 		, lastInput()
-		, currentLine(0)
+		//, currentLine(0)
 
 	{
 		
@@ -37,7 +36,7 @@ public:
 		DrawInputWord();
 		DrawLastInput();
 		DrawScore();
-		DrawTrackTitle();
+		//DrawTrackTitle();
 		DrawTextrue();
 
 	}
@@ -80,8 +79,8 @@ private:
 
 	void ForwardLylicLine()
 	{
-		currentLine = (currentLine + 1) % track.size();
-		targetWord = track[currentLine];
+		//currentLine = (currentLine + 1) % track.size();
+		//targetWord = track[currentLine];
 	}
 
 	void UpdateLylicLine()
@@ -103,10 +102,10 @@ private:
 
 	void Initialize()
 	{
-		targetWord = track[0];
+		targetWord = U"test";// track[0];
 		input.clear();
 		lastInput.clear();
-		currentLine = 0;
+		//currentLine = 0;
 	}
 
 	void SetNextPage()
@@ -120,7 +119,7 @@ private:
 	void DrawTrackTitle() const
 	{
 
-		font(U"{}"_fmt(track[0])).draw(TrackTitlePos, theme.wordColor);
+		//font(U"{}"_fmt(track[0])).draw(TrackTitlePos, theme.wordColor);
 	}
 
 	void DrawTargetWord() const
@@ -202,13 +201,13 @@ private:
 	static constexpr int32 EncouragementThreshold = 30 / 2;
 
 	static constexpr double imageScale = 0.3;
-	static constexpr Point imagePos = Point(0, 0);
+	static constexpr Point imagePos = Point(0, 200);
 
 	//Array<Array<String>> words;
 	//Array<Array<String>> album;
-	Array<String> track;
+	//Array<String> track;
 	String targetWord;
-	int32 currentLine;
+	//int32 currentLine;
 	String input;
 	String lastInput;
 	int32 score = 0;
