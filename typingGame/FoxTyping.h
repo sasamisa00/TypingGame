@@ -47,14 +47,23 @@ private:
 	void UpdateTextInput()
 	{
 		const String previousInput = input;
-		TextInput::UpdateText(input, TextInputMode::DenyControl);
+		//TextInput::UpdateText(input, TextInputMode::DenyControl);
+		TextInput::UpdateText(input);
 
-		if (HasInputChanged(previousInput, input))
+		// 未変換の文字入力を取得する
+		const String editingText = TextInput::GetEditingText();
+
+		const Rect box{ 50, 50, 700, 300 };
+		box.draw(ColorF{ 0.3 });
+
+		font(input + U'|' + editingText).draw(30, box.stretched(-20));
+
+		/*if (HasInputChanged(previousInput, input))
 		{
 			StoreLastInput();
-		}
+		}*/
 
-		HandleIncorrectInput();
+		//HandleIncorrectInput();
 
 	}
 

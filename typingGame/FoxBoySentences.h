@@ -188,55 +188,55 @@ const PageSentence SAMPLE_PAGE =
 	U"sample",
 };
 
-const Array<PageSentence> FOX_BOY_SEBTENCES =
-{
-	SAMPLE_PAGE,
-	SAMPLE_PAGE,
-	SAMPLE_PAGE,
-	SAMPLE_PAGE,
-	SAMPLE_PAGE,
-	SAMPLE_PAGE,
-	SAMPLE_PAGE,
-	SAMPLE_PAGE,
-	SAMPLE_PAGE,
-	SAMPLE_PAGE,
-	SAMPLE_PAGE,
-	SAMPLE_PAGE,
-	SAMPLE_PAGE,
-	SAMPLE_PAGE,
-	SAMPLE_PAGE,
-	SAMPLE_PAGE,
-	SAMPLE_PAGE,
-	SAMPLE_PAGE,
-	SAMPLE_PAGE,
-	SAMPLE_PAGE,
-
-};
-
-
 //const Array<PageSentence> FOX_BOY_SEBTENCES =
 //{
-//	EMPTY_PAGE,
-//	EMPTY_PAGE,
-//	foxBoyPage1,
-//	foxBoyPage2,
-//	foxBoyPage3,
-//	foxBoyPage4,
-//	foxBoyPage5,
-//	foxBoyPage6,
-//	foxBoyPage7,
-//	foxBoyPage8,
-//	foxBoyPage9,
-//	foxBoyPage10,
-//	foxBoyPage11,
-//	foxBoyPage12,
-//	foxBoyPage13,
-//	foxBoyPage14,
-//	foxBoyPage15,
-//	foxBoyPage16,
-//	EMPTY_PAGE,
-//	EMPTY_PAGE
+//	SAMPLE_PAGE,
+//	SAMPLE_PAGE,
+//	SAMPLE_PAGE,
+//	SAMPLE_PAGE,
+//	SAMPLE_PAGE,
+//	SAMPLE_PAGE,
+//	SAMPLE_PAGE,
+//	SAMPLE_PAGE,
+//	SAMPLE_PAGE,
+//	SAMPLE_PAGE,
+//	SAMPLE_PAGE,
+//	SAMPLE_PAGE,
+//	SAMPLE_PAGE,
+//	SAMPLE_PAGE,
+//	SAMPLE_PAGE,
+//	SAMPLE_PAGE,
+//	SAMPLE_PAGE,
+//	SAMPLE_PAGE,
+//	SAMPLE_PAGE,
+//	SAMPLE_PAGE,
+//
 //};
+
+
+const Array<PageSentence> FOX_BOY_SEBTENCES =
+{
+	EMPTY_PAGE,
+	EMPTY_PAGE,
+	foxBoyPage1,
+	foxBoyPage2,
+	foxBoyPage3,
+	foxBoyPage4,
+	foxBoyPage5,
+	foxBoyPage6,
+	foxBoyPage7,
+	foxBoyPage8,
+	foxBoyPage9,
+	foxBoyPage10,
+	foxBoyPage11,
+	foxBoyPage12,
+	foxBoyPage13,
+	foxBoyPage14,
+	foxBoyPage15,
+	foxBoyPage16,
+	EMPTY_PAGE,
+	EMPTY_PAGE
+};
 
 
 
