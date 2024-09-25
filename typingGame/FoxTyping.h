@@ -3,18 +3,19 @@
 #include "ColorDefinition.h"
 #include "EncouragingMessages.h"
 #include "FoxBoyImagePath.h"
+#include "FoxBoySentences.h"
 
 class FoxTyping
 {
 public:
 	FoxTyping(const WordColorTheme& wordColorTheme = WordColorTheme(), CyrillicAlphabetList cyrillicChar = CyrillicAlphabetList::а)
 		: theme(wordColorTheme)//, words(shortparis_RedFlag) // shortparis_RedFlagから問題を作成するように変更
-		, album(shortparis_RedFlag)
+		//, album(shortparis_RedFlag)
 		, track(shortparis_RedFlag[0])
 		, targetWord(track[0])
 		, input()
 		, lastInput()
-		, currentLylicLine(0)
+		, currentLine(0)
 
 	{
 		
@@ -79,8 +80,8 @@ private:
 
 	void ForwardLylicLine()
 	{
-		currentLylicLine = (currentLylicLine + 1) % track.size();
-		targetWord = track[currentLylicLine];
+		currentLine = (currentLine + 1) % track.size();
+		targetWord = track[currentLine];
 	}
 
 	void UpdateLylicLine()
@@ -105,14 +106,13 @@ private:
 		targetWord = track[0];
 		input.clear();
 		lastInput.clear();
-		currentLylicLine = 0;
+		currentLine = 0;
 	}
 
 	void SetNextPage()
 	{
-		//track = album.choice();
-		currentTxtureIndex = (currentTxtureIndex + 1) % FOX_BOY_IMAGE_PATH.size();
-		texture = Texture{ FOX_BOY_IMAGE_PATH[currentTxtureIndex], TextureDesc::Mipped };
+		currentPage = (currentPage + 1) % FOX_BOY_IMAGE_PATH.size();
+		texture = Texture{ FOX_BOY_IMAGE_PATH[currentPage], TextureDesc::Mipped };
 
 		Initialize();
 	}
@@ -205,10 +205,10 @@ private:
 	static constexpr Point imagePos = Point(0, 0);
 
 	//Array<Array<String>> words;
-	Array<Array<String>> album;
+	//Array<Array<String>> album;
 	Array<String> track;
 	String targetWord;
-	int32 currentLylicLine;
+	int32 currentLine;
 	String input;
 	String lastInput;
 	int32 score = 0;
@@ -217,7 +217,7 @@ private:
 	Font font{ FontSize };
 
 	Texture texture{ FOX_BOY_IMAGE_PATH[0], TextureDesc::Mipped};
-	int32 currentTxtureIndex = 0;
+	int32 currentPage = 0;
 
 };
 

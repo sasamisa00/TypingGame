@@ -333,6 +333,7 @@
     <ClInclude Include="ColorDefinition.h" />
     <ClInclude Include="EncouragingMessages.h" />
     <ClInclude Include="FoxBoyImagePath.h" />
+    <ClInclude Include="FoxBoySentences.h" />
     <ClInclude Include="FoxTyping.h" />
     <ClInclude Include="MathHelpers.h" />
     <ClInclude Include="RedFlagTyping.h" />
