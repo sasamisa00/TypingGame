@@ -839,5 +839,17 @@
     <ClInclude Include="MathHelpers.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="EncouragingMessages.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RedFlagTyping.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="shortparisLylics.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FoxTyping.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

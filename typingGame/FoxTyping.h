@@ -5,10 +5,10 @@
 #include "EncouragingMessages.h"
 #include "shortparisLylics.h"
 
-class RedFlagTyping
+class FoxTyping
 {
 public:
-	RedFlagTyping(const WordColorTheme& wordColorTheme = WordColorTheme(), CyrillicAlphabetList cyrillicChar = CyrillicAlphabetList::а)
+	FoxTyping(const WordColorTheme& wordColorTheme = WordColorTheme(), CyrillicAlphabetList cyrillicChar = CyrillicAlphabetList::а)
 		: theme(wordColorTheme)//, words(shortparis_RedFlag) // shortparis_RedFlagから問題を作成するように変更
 		, album(shortparis_RedFlag)
 		, track(shortparis_RedFlag[0])
@@ -18,10 +18,10 @@ public:
 		, currentLylicLine(0)
 
 	{
-		//Initialize();
+		
 	}
 
-	~RedFlagTyping() = default;
+	~FoxTyping() = default;
 
 	void Update()
 	{
@@ -38,6 +38,8 @@ public:
 		DrawLastInput();
 		DrawScore();
 		DrawTrackTitle();
+		DrawTextrue();
+
 	}
 
 private:
@@ -88,7 +90,7 @@ private:
 
 		UpdateScore();
 		ForwardLylicLine();
-		
+
 	}
 
 	void UpdateTrack()
@@ -140,6 +142,11 @@ private:
 	{
 		ColorF scoreColor = GetScoreColor();
 		font(U"文字数: {}"_fmt(score)).draw(scoreFontSize, ScorePosition, scoreColor);
+	}
+
+	void DrawTextrue() const
+	{
+		texture.scaled(0.3).draw(0, 0);
 	}
 
 	void StoreLastInput()
@@ -204,5 +211,10 @@ private:
 	int32 lastEncouragementScore = 0;
 	WordColorTheme theme;
 	Font font{ FontSize };
+
+	// 画像ファイルからテクスチャを作成する | Create a texture from an image file
+	//const Texture texture{ U"example/windmill.png" };
+	const Texture texture{ U"fox-boy-05.png", TextureDesc::Mipped };
+
 };
 
