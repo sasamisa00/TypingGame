@@ -136,6 +136,15 @@
     <Filter Include="Resource Files\engine\font\min">
       <UniqueIdentifier>{1b103960-f11a-4515-b4f1-f59333ce00d9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\shortparis">
+      <UniqueIdentifier>{737fd363-23cb-4326-a8b1-3c90c04db96a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\foxboy">
+      <UniqueIdentifier>{d7952bc4-1e0f-4c49-92cd-3059ba63aef8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\cyllictype">
+      <UniqueIdentifier>{69c8109c-8d80-4619-afa1-bfcba113d4ae}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -821,16 +830,7 @@
     <ClInclude Include="stdafx.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="wordList.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="AlphabetFunction.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="ScreenshotManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="WordGame.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ColorDefinition.h">
@@ -843,13 +843,25 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="RedFlagTyping.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\shortparis</Filter>
     </ClInclude>
     <ClInclude Include="shortparisLylics.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\shortparis</Filter>
     </ClInclude>
     <ClInclude Include="FoxTyping.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\foxboy</Filter>
+    </ClInclude>
+    <ClInclude Include="FoxBoyImagePath.h">
+      <Filter>Header Files\foxboy</Filter>
+    </ClInclude>
+    <ClInclude Include="WordGame.h">
+      <Filter>Header Files\cyllictype</Filter>
+    </ClInclude>
+    <ClInclude Include="wordList.h">
+      <Filter>Header Files\cyllictype</Filter>
+    </ClInclude>
+    <ClInclude Include="AlphabetFunction.h">
+      <Filter>Header Files\cyllictype</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

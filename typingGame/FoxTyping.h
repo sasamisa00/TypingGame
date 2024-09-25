@@ -1,9 +1,8 @@
 ﻿#pragma once
 #include <Siv3D.hpp>
-#include "AlphabetFunction.h"
 #include "ColorDefinition.h"
 #include "EncouragingMessages.h"
-#include "shortparisLylics.h"
+#include "FoxBoyImagePath.h"
 
 class FoxTyping
 {
@@ -27,7 +26,7 @@ public:
 	{
 		UpdateTextInput();
 		UpdateLylicLine();
-		UpdateTrack();
+		UpdatePage();
 
 	}
 
@@ -93,11 +92,11 @@ private:
 
 	}
 
-	void UpdateTrack()
+	void UpdatePage()
 	{
-		if (not SimpleGUI::Button(U"曲変更", TrachChageButtonPos)) return;
+		if (not SimpleGUI::Button(U"次のページ", TrachChageButtonPos)) return;
 
-		SetRandomTrack();
+		SetNextPage();
 	}
 
 
@@ -109,9 +108,11 @@ private:
 		currentLylicLine = 0;
 	}
 
-	void SetRandomTrack()
+	void SetNextPage()
 	{
-		track = album.choice();
+		//track = album.choice();
+		currentTxtureIndex = (currentTxtureIndex + 1) % FOX_BOY_IMAGE_PATH.size();
+		texture = Texture{ FOX_BOY_IMAGE_PATH[currentTxtureIndex], TextureDesc::Mipped };
 
 		Initialize();
 	}
@@ -146,7 +147,7 @@ private:
 
 	void DrawTextrue() const
 	{
-		texture.scaled(0.3).draw(0, 0);
+		texture.scaled(imageScale).draw(imagePos);
 	}
 
 	void StoreLastInput()
@@ -200,6 +201,9 @@ private:
 	static constexpr int32 scoreFontSize = FontSize / 2;
 	static constexpr int32 EncouragementThreshold = 30 / 2;
 
+	static constexpr double imageScale = 0.3;
+	static constexpr Point imagePos = Point(0, 0);
+
 	//Array<Array<String>> words;
 	Array<Array<String>> album;
 	Array<String> track;
@@ -212,9 +216,8 @@ private:
 	WordColorTheme theme;
 	Font font{ FontSize };
 
-	// 画像ファイルからテクスチャを作成する | Create a texture from an image file
-	//const Texture texture{ U"example/windmill.png" };
-	const Texture texture{ U"fox-boy-05.png", TextureDesc::Mipped };
+	Texture texture{ FOX_BOY_IMAGE_PATH[0], TextureDesc::Mipped};
+	int32 currentTxtureIndex = 0;
 
 };
 
